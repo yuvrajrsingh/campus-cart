@@ -153,7 +153,7 @@ function SellerDashboard() {
         </>
       )}
       <div className="listing-grid">
-        {data ? (
+        {data.length > 0 ? (
           data.map((item) => {
             return (
               <article className="listing-card" key={item.id}>
