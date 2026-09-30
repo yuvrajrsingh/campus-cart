@@ -1,5 +1,7 @@
+const API_URL = "https://fastapi-seller.vercel.app";
+
 export async function getListings() {
-  const response = await fetch("/api/seller/");
+  const response = await fetch(`${API_URL}/seller/`);
   const body = response.json();
   return body;
 }
@@ -12,7 +14,7 @@ export async function addListing(
   stock,
   shipping_info,
 ) {
-  await fetch("/api/seller/", {
+  await fetch(`${API_URL}/seller/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +39,7 @@ export async function updateListing(
   stock,
   shipping_info,
 ) {
-  await fetch(`/api/seller/${id}`, {
+  await fetch(`${API_URL}/seller/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +48,6 @@ export async function updateListing(
       title,
       description,
       category,
-      description,
       price,
       stock,
       shipping_info,
@@ -55,7 +56,7 @@ export async function updateListing(
 }
 
 export async function deleteListing(id) {
-  await fetch(`/api/seller/${id}`, {
+  await fetch(`${API_URL}/seller/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

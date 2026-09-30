@@ -140,34 +140,32 @@ nav + div {
 }
 
 /* Catalog */
-nav + div:has(> input[type="text"]) {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 1.25rem;
+
+.catalog {
+  width: min(100% - 2rem, 1240px);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0;
 }
 
-nav + div:has(> input[type="text"]) > input {
-  order: 1;
+.catalog-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.catalog-controls input {
   flex: 1 1 100%;
   width: 100%;
 }
 
-nav + div:has(> input[type="text"]) > select {
-  order: 2;
+.catalog-controls select {
   flex: 0 1 220px;
   width: 100%;
 }
 
-nav + div:has(> input[type="text"])::before {
-  content: "";
-  order: 3;
-  flex-basis: 100%;
-}
-
-nav + div > input,
-nav + div > select,
-form input {
+.catalog-controls input,
+.catalog-controls select {
   min-height: 2.85rem;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -180,26 +178,31 @@ form input {
     box-shadow 180ms ease;
 }
 
-nav + div > input::placeholder,
-form input::placeholder {
+.catalog-controls input::placeholder {
   color: #9aa59d;
 }
 
-nav + div > input:focus,
-nav + div > select:focus,
-form input:focus {
+.catalog-controls input:focus,
+.catalog-controls select:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 4px rgb(36 117 77 / 12%);
 }
 
-nav + div:has(> input[type="text"]) > a {
-  order: 4;
+/* Results */
+
+.catalog-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.catalog-results > a {
   flex: 1 1 220px;
   max-width: calc(25% - 0.95rem);
   min-width: 0;
 }
 
-nav + div:has(> input[type="text"]) > a > div {
+.catalog-results > a > div {
   height: 100%;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -212,13 +215,13 @@ nav + div:has(> input[type="text"]) > a > div {
     transform 180ms ease;
 }
 
-nav + div:has(> input[type="text"]) > a:hover > div {
+.catalog-results > a:hover > div {
   border-color: #b6d5c0;
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
 
-nav + div:has(> input[type="text"]) > a img {
+.catalog-results > a img {
   display: block;
   width: 100%;
   height: clamp(170px, 18vw, 230px);
@@ -227,7 +230,7 @@ nav + div:has(> input[type="text"]) > a img {
   object-fit: contain;
 }
 
-nav + div:has(> input[type="text"]) > a h3 {
+.catalog-results > a h3 {
   overflow: hidden;
   margin: 1rem 1rem 0;
   font-family: "Space Grotesk", sans-serif;
@@ -236,86 +239,43 @@ nav + div:has(> input[type="text"]) > a h3 {
   white-space: nowrap;
 }
 
-nav + div:has(> input[type="text"]) > a p {
+.catalog-results > a p {
   margin: 0.45rem 1rem 0;
   color: var(--muted);
   font-size: 0.88rem;
 }
 
-nav + div:has(> input[type="text"]) > a p:last-child {
+.catalog-results > a p:last-child {
   margin-bottom: 1.15rem;
   color: var(--green);
   font-weight: 600;
   text-transform: capitalize;
 }
 
-nav + div:has(> input[type="text"]) > button {
-  order: 5;
-  margin-top: 0.25rem;
+/* Searching / No Results */
+
+.search-status,
+.no-results {
+  flex-basis: 100%;
+  margin: 1rem 0;
 }
 
-/* Cart */
-nav + div:has(> pre) {
-  max-width: 900px;
-}
-
-nav + div > pre {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  overflow-x: auto;
-  margin: 0 0 0.75rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  font-family: "DM Sans", sans-serif;
-  white-space: nowrap;
-}
-
-nav + div > pre button {
-  padding: 0.35rem 0.65rem;
-}
-
-nav + div:has(> pre) > p:last-child {
-  margin-top: 1.5rem;
-  color: var(--green-dark);
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-align: right;
-}
-
-/* Product detail */
-nav + div:has(> img) {
-  max-width: 1100px;
-}
-
-nav + div:has(> img) > img {
-  width: min(30%, 260px);
-  height: 260px;
-  margin: 0 1rem 1rem 0;
-  padding: 1.25rem;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--surface);
-  object-fit: contain;
-  vertical-align: top;
-}
-
-nav + div:has(> img) > p {
-  max-width: 720px;
+.search-status {
   color: var(--muted);
-  font-size: 1rem;
 }
 
-nav + div:has(> img) > p:first-of-type {
+.no-results {
   color: var(--green-dark);
   font-family: "Space Grotesk", sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
+  text-align: center;
+}
+
+/* Pagination */
+
+.catalog-pagination {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 /* Forms and seller dashboard */

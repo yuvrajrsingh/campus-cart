@@ -43,6 +43,7 @@ function Cart() {
             </button>{" "}
             Quantity: {item.quantity}{" "}
             <button
+              disabled={item.quantity >= item.product.stock}
               onClick={() =>
                 setCart((currentCart) =>
                   currentCart.map((i) =>

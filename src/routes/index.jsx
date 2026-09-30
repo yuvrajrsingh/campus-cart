@@ -30,7 +30,7 @@ function Home() {
     }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
-  const { isLoading, data } = useQuery({
+  const { isLoading, isFetching, data } = useQuery({
     queryKey: ["products", skip, activeSearch, activeFilter, sort],
     queryFn: () => getProducts(skip, activeSearch, activeFilter, sort),
     staleTime: 30000,
@@ -55,71 +55,83 @@ function Home() {
   }
   return (
     <>
-      <div>
-        <input
-          type="text"
-          placeholder="Search Products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <select
-          value={activeFilter}
-          onChange={(e) => {
-            setActiveFilter(e.target.value);
-            setSkip(0);
-          }}
-        >
-          <option value="">All Categories</option>
-          {categories.map((category) => {
-            return (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            );
-          })}
-        </select>
-        <select
-          value={sort}
-          onChange={(e) => {
-            setSort(e.target.value);
-            setSkip(0);
-          }}
-        >
-          <option value="asc">Cheapest</option>
-          <option value="desc">Costliest</option>
-        </select>
-        {displayedProducts.map((product) => {
-          return (
-            <Link
-              key={product.id}
-              to="/products/$productId"
-              params={{ productId: product.id }}
-            >
-              <Card
-                name={product.title}
-                image={product.images[0]}
-                price={product.price}
-                category={product.category}
-              />
-            </Link>
-          );
-        })}
-        <button
-          disabled={skip === 0}
-          onClick={() => setSkip((currentSkip) => currentSkip - 30)}
-        >
-          Previous
-        </button>
-        <button
-          disabled={
-            isCombinedFilter
-              ? skip + 30 >= filteredProducts.length
-              : products.length < 30
-          }
-          onClick={() => setSkip((currentSkip) => currentSkip + 30)}
-        >
-          Next
-        </button>
+      <div className="catalog">
+        <div className="catalog-controls">
+          <input
+            type="text"
+            placeholder="Search Products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <select
+            value={activeFilter}
+            onChange={(e) => {
+              setActiveFilter(e.target.value);
+              setSkip(0);
+            }}
+          >
+            <option value="">All Categories</option>
+            {categories.map((category) => {
+              return (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              );
+            })}
+          </select>
+          <select
+            value={sort}
+            onChange={(e) => {
+              setSort(e.target.value);
+              setSkip(0);
+            }}
+          >
+            <option value="asc">Cheapest</option>
+            <option value="desc">Costliest</option>
+          </select>
+        </div>
+        <div className="catalog-results">
+          {isFetching ? (
+            <p className="search-status">Searching...</p>
+          ) : displayedProducts.length > 0 ? (
+            displayedProducts.map((product) => {
+              return (
+                <Link
+                  key={product.id}
+                  to="/products/$productId"
+                  params={{ productId: product.id }}
+                >
+                  <Card
+                    name={product.title}
+                    image={product.images[0]}
+                    price={product.price}
+                    category={product.category}
+                  />
+                </Link>
+              );
+            })
+          ) : (
+            <h1 className="no-results">No Results</h1>
+          )}
+        </div>
+        <div className="catalog-pagination">
+          <button
+            disabled={skip === 0}
+            onClick={() => setSkip((currentSkip) => currentSkip - 30)}
+          >
+            Previous
+          </button>
+          <button
+            disabled={
+              isCombinedFilter
+                ? skip + 30 >= filteredProducts.length
+                : products.length < 30
+            }
+            onClick={() => setSkip((currentSkip) => currentSkip + 30)}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );
