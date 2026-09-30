@@ -383,7 +383,7 @@ form {
 }
 
 @media (max-width: 960px) {
-  nav + div:has(> input[type="text"]) > a {
+  .catalog-results > a {
     max-width: calc(33.333% - 0.84rem);
   }
 
@@ -407,40 +407,52 @@ form {
     padding: 1.25rem 0 2rem;
   }
 
-  nav + div:has(> input[type="text"]) {
+  /* Catalog */
+  .catalog {
+    width: min(100% - 1.25rem, 1240px);
+    padding: 1.25rem 0 2rem;
+  }
+
+  .catalog-controls {
     gap: 0.75rem;
   }
 
-  nav + div:has(> input[type="text"]) > input {
-    flex-basis: 100%;
+  .catalog-controls select {
+    flex: 1 1 calc(50% - 0.375rem);
   }
 
-  nav + div:has(> input[type="text"]) > a {
+  .catalog-results {
+    gap: 0.75rem;
+  }
+
+  .catalog-results > a {
     max-width: calc(50% - 0.375rem);
   }
 
-  nav + div:has(> input[type="text"]) > a img {
+  .catalog-results > a img {
     height: 145px;
     padding: 0.7rem;
   }
 
-  nav + div:has(> input[type="text"]) > a h3 {
+  .catalog-results > a h3 {
     margin: 0.75rem 0.7rem 0;
     font-size: 0.9rem;
   }
 
-  nav + div:has(> input[type="text"]) > a p {
+  .catalog-results > a p {
     margin-left: 0.7rem;
     margin-right: 0.7rem;
     font-size: 0.8rem;
   }
 
+  /* Product detail */
   nav + div:has(> img) > img {
     width: calc(50% - 0.65rem);
     height: 160px;
     margin-right: 0.5rem;
   }
 
+  /* Seller */
   .listing-grid {
     grid-template-columns: 1fr;
   }
